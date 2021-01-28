@@ -1,0 +1,14 @@
+[Unit]
+Description=IoMBian Button Handler
+
+[Service]
+Type=simple
+User=iompi
+Restart=always
+RestartSec=5
+
+WorkingDirectory=/opt/iombian-button-handler
+ExecStart=/opt/iombian-button-handler/venv/bin/python /opt/iombian-button-handler/main.py
+
+[Install]
+WantedBy=multi-user.target
