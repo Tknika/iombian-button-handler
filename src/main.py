@@ -9,18 +9,19 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(messag
 logger = logging.getLogger(__name__)
 
 PIN_NUMBER = 3
-CLIENT_TOPIC = 5556
-BUTTON_TOPIC = "system_button_event"
+PUBLISHER_HOST = "127.0.0.1"
+PUBLISHER_PORT = 5556
 
 
 def signal_handler(sig, frame):
     logger.info("Stopping IoMBian Button Handler")
     b_handler.stop()
+    publisher_client.stop()
 
 
 def on_click_event(event):
     logger.debug(f"New '{event}' detected")
-    client.send(event)
+    publisher_client.send(event)
 
 
 if __name__ == "__main__":
@@ -29,8 +30,8 @@ if __name__ == "__main__":
     b_handler = ButtonHandler(PIN_NUMBER, on_click_event)
     b_handler.start()
 
-    client = PubClient(topic=BUTTON_TOPIC, port=CLIENT_TOPIC)
-    client.start()
+    publisher_client = PubClient(host=PUBLISHER_HOST ,port=PUBLISHER_PORT)
+    publisher_client.start()
 
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
