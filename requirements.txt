@@ -1,2 +1,2 @@
-RPi.GPIO==0.7.0
+RPi.GPIO==0.7.1a4
 pyzmq==21.0.1
