@@ -6,6 +6,7 @@ Type=simple
 User=iompi
 Restart=always
 RestartSec=5
+TimeoutStopSec=5
 
 WorkingDirectory=/opt/iombian-button-handler
 ExecStart=/opt/iombian-button-handler/venv/bin/python /opt/iombian-button-handler/main.py
