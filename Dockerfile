@@ -7,4 +7,3 @@ RUN pip install -r requirements.txt
 COPY src ./
 EXPOSE 5556
 CMD ["python", "/app/main.py"]
-# De momento sin variables de entorno ni nada como primera prueba
