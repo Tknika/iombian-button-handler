@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(messag
 logger = logging.getLogger(__name__)
 
 PIN_NUMBER = 3
-PUBLISHER_HOST = "127.0.0.1"
+PUBLISHER_HOST = "0.0.0.0"
 PUBLISHER_PORT = 5556
 
 
