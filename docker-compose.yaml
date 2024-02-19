@@ -1,10 +1,16 @@
 services:
-  button-handler:
+  iombian-button-handler:
     image: iombian-button-handler
     container_name: iombian-button-handler
-    network_mode: "host"
     privileged: true
+    restart: unless-stopped
     environment:
       BUTTON_PIN: ${BUTTON_PIN:-3}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
       BUTTON_EVENTS_PORT: ${BUTTON_EVENTS_PORT:-5556}
+    networks:
+      - iombian-internal-services 
+
+networks:
+  iombian-internal-services:
+    external: true

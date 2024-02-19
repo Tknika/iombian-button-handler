@@ -9,7 +9,7 @@ import os
 
 PIN_NUMBER = int(os.environ.get("BUTTON_PIN", 3)) 
 PUBLISHER_HOST = "0.0.0.0"
-PUBLISHER_PORT = int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
+BUTTON_EVENTS_PORT = int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
 LOG_LEVEL = os.environ.get("LOG_LEVEL", logging.INFO)
 
 logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s', level=LOG_LEVEL)
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     b_handler = ButtonHandler(PIN_NUMBER, on_click_event)
     b_handler.start()
 
-    publisher_client = PubClient(host=PUBLISHER_HOST, port=PUBLISHER_PORT)
+    publisher_client = PubClient(host=PUBLISHER_HOST, port=BUTTON_EVENTS_PORT)
     publisher_client.start()
 
     signal.signal(signal.SIGINT, signal_handler)
