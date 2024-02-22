@@ -4,10 +4,11 @@ services:
     container_name: iombian-button-handler
     privileged: true
     restart: unless-stopped
+    ports:
+      - ${BUTTON_EVENTS_PORT:-5556}:5556
     environment:
       BUTTON_PIN: ${BUTTON_PIN:-3}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      BUTTON_EVENTS_PORT: ${BUTTON_EVENTS_PORT:-5556}
     networks:
       - iombian-internal-services 
 
