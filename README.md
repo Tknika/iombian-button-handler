@@ -62,18 +62,9 @@ For example:
 
 After building the image, execute it with docker run
 
-```docker run --network host -e BUTTON_PIN=3 --privileged --rm -d --name ${CONTAINER_NAME} ${IMAGE_NAME}```
-- --network is used to set the network where the container will be deployed.
-The selected network is host, which makes the container run in the same network as any other application.
-This way there is no need to map any port.
+```docker run --name ${CONTAINER_NAME} --privileged --rm -d -p 5556:5556 -e BUTTON_PIN=3```
 
-- -e can be used to define the environment variables:
-    - BUTTON_PIN: define the pin of the button of the radpberry pi. Default value is 3.
-    - LOG_LEVEL: define the log level for the python logger.
-    This can be NOTSET, DEBUG, INFO, WARNING, ERROR or CRITICAL.
-    Default value is INFO.
-    - BUTTON_EVENT_PORT: define the port where the button pressing events will be transmitted.
-    The iombian-button-handler will be the publisher on this port.
+- --name is used to define the name of the created container.
 
 - --privileged is for granting privileges to the docker container.
 This is needed because the iombian-button-handler needs to create a thread to listen to the button events.
@@ -85,7 +76,18 @@ This parameter is optional.
 This way the the container will run in the background.
 This parameter is optional.
 
-- --name is used to define the name of the created container.
+- -p is used to expose the internal 5556 port to the external 5556 port.
+The 5556 port is where this service will publish the button events.
+The port is exposed so the published messages can be accesd from outside the containers network.
+
+- -e can be used to define the environment variables:
+    - BUTTON_PIN: define the pin of the button of the radpberry pi. Default value is 3.
+    - LOG_LEVEL: define the log level for the python logger.
+    This can be NOTSET, DEBUG, INFO, WARNING, ERROR or CRITICAL.
+    Default value is INFO.
+    - BUTTON_EVENT_PORT: define the internal port where the button pressing events will be transmitted.
+    The iombian-button-handler will be the publisher on this port.
+    Default port is 5556.
 
 ## Author
 
