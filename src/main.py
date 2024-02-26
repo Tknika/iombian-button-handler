@@ -4,13 +4,17 @@ from button_handler import ButtonHandler
 import logging
 from pub_client import PubClient
 import signal
+import os
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s', level=logging.INFO)
+
+PIN_NUMBER = int(os.environ.get("BUTTON_PIN", 3)) 
+LOG_LEVEL = os.environ.get("LOG_LEVEL", logging.INFO)
+BUTTON_EVENTS_PORT = int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
+
+PUBLISHER_HOST = "0.0.0.0"
+
+logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s', level=LOG_LEVEL)
 logger = logging.getLogger(__name__)
-
-PIN_NUMBER = 3
-PUBLISHER_HOST = "127.0.0.1"
-PUBLISHER_PORT = 5556
 
 
 def signal_handler(sig, frame):
@@ -30,7 +34,7 @@ if __name__ == "__main__":
     b_handler = ButtonHandler(PIN_NUMBER, on_click_event)
     b_handler.start()
 
-    publisher_client = PubClient(host=PUBLISHER_HOST ,port=PUBLISHER_PORT)
+    publisher_client = PubClient(host=PUBLISHER_HOST, port=BUTTON_EVENTS_PORT)
     publisher_client.start()
 
     signal.signal(signal.SIGINT, signal_handler)
