@@ -53,7 +53,7 @@ Any ZeroMQ subscriber can listen to those events and act accordingly.
 
 ## Docker
 
-To build the docker image, from the clonned repository, execute the docker build command in the same level as the Dockerfile.
+To build the docker image, from the cloned repository, execute the docker build command in the same level as the Dockerfile.
 
 ```docker build -t ${IMAGE_NAME}:${IMAGE_VERSION} .```
 
@@ -73,7 +73,7 @@ This is needed because the iombian-button-handler needs to create a thread to li
 This parameter is optional.
 
 - -d is used to run the container detached.
-This way the the container will run in the background.
+This way the container will run in the background.
 This parameter is optional.
 
 - -p is used to expose the internal 5556 port to the external 5556 port.
