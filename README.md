@@ -62,7 +62,7 @@ For example:
 
 After building the image, execute it with docker run
 
-```docker run --name ${CONTAINER_NAME} --privileged --rm -d -p 5556:5556 -e BUTTON_PIN=3```
+```docker run --name ${CONTAINER_NAME} --privileged --rm -d -p 5556:5556 -e BUTTON_PIN=3 iombian-button-handler:latest```
 
 - --name is used to define the name of the created container.
 
