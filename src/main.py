@@ -7,13 +7,14 @@ import signal
 import os
 
 
-PIN_NUMBER = int(os.environ.get("BUTTON_PIN", 3)) 
+PIN_NUMBER = int(os.environ.get("BUTTON_PIN", 3))
 LOG_LEVEL = os.environ.get("LOG_LEVEL", logging.INFO)
 BUTTON_EVENTS_PORT = int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
 
 PUBLISHER_HOST = "0.0.0.0"
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s', level=LOG_LEVEL)
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s', level=LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 
@@ -24,7 +25,7 @@ def signal_handler(sig, frame):
 
 
 def on_click_event(event):
-    logger.debug(f"New '{event}' detected")
+    logger.info(f"New '{event}' detected")
     publisher_client.send(event)
 
 
