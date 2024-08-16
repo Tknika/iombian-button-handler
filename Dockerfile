@@ -1,6 +1,6 @@
 FROM python:3.12.5-alpine3.20 AS builder
 
-RUN apk add swig linux-headers alpine-sdk && wget http://abyz.me.uk/lg/lg.zip && unzip lg.zip && cd lg && sed -i -e 's/ldconfig/echo ldconfig disabled/g' Makefile && make && make install
+RUN apk add swig linux-headers alpine-sdk cmake && wget http://abyz.me.uk/lg/lg.zip && unzip lg.zip && cd lg && sed -i -e 's/ldconfig/echo ldconfig disabled/g' Makefile && make && make install
 
 COPY requirements.txt ./
 RUN pip install --no-cache -r requirements.txt
