@@ -1,8 +1,20 @@
-FROM python:3.9-slim-bookworm
-WORKDIR /app
+FROM python:3.12.5-alpine3.20 AS builder
+
+RUN apk add swig linux-headers alpine-sdk cmake && wget http://abyz.me.uk/lg/lg.zip && unzip lg.zip && cd lg && sed -i -e 's/ldconfig/echo ldconfig disabled/g' Makefile && make && make install
+
 COPY requirements.txt ./
-RUN apt-get update && apt-get install build-essential -y
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --no-cache -r requirements.txt
+
+RUN pip uninstall -y setuptools pip
+RUN rm -rf /usr/local/lib/python3.12/site-packages/__pycache__ /usr/local/lib/python3.12/site-packages/_distutils_hack/
+
+
+FROM python:3.12.5-alpine3.20
+
+COPY --from=builder /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
+COPY --from=builder /usr/local/lib/liblgpio* /usr/local/lib/
+
+WORKDIR /app
 COPY src ./
+
 CMD ["python", "/app/main.py"]
